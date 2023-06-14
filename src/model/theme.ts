@@ -1,9 +1,11 @@
 import { createTheme } from '@mui/material'
 
+export const MAIN_COLOR = '#68e1fb'
+
 export const appTheme = createTheme({
     palette: {
         primary: {
-            main: '#68e1fb',
+            main: MAIN_COLOR,
         },
     },
     components: {

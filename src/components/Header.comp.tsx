@@ -24,11 +24,21 @@ export const Header: React.FC = () => {
                 </Grid>
                 <Grid item>
                     <Grid container gap={4}>
-                        <NavLink to={RoutesEnum.ABOUT}>
-                            <Link>About</Link>
+                        <NavLink
+                            to={RoutesEnum.ABOUT}
+                            className={({ isActive }) =>
+                                isActive ? 'link_active' : 'link_inactive'
+                            }
+                        >
+                            About
                         </NavLink>
-                        <NavLink to={RoutesEnum.CONTACT}>
-                            <Link>Contact us</Link>
+                        <NavLink
+                            to={RoutesEnum.CONTACT}
+                            className={({ isActive }) =>
+                                isActive ? 'link_active' : 'link_inactive'
+                            }
+                        >
+                            Contact us
                         </NavLink>
                     </Grid>
                 </Grid>
