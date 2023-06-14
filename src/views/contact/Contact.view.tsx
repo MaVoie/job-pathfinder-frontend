@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { PageWrapper } from '../../components/Page.wrapper.tsx'
 import { Box, Button, Input } from '@mui/material'
 import {
@@ -6,8 +6,30 @@ import {
     aboutCaptionStyles,
     aboutTitleStyles,
 } from '../about/about.styles.ts'
+import { useForm } from 'react-hook-form'
+import { ContactModel } from './model/Contact.model.ts'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useContactValidation } from './model/useContactValidation.util.ts'
+import { useSubmitContact } from './util/useSubmitContact.util.ts'
 
 export const ContactView: React.FC = () => {
+    const { submitContact } = useSubmitContact()
+    const validation = useContactValidation()
+    const { handleSubmit, clearErrors, register } = useForm<ContactModel>({
+        resolver: yupResolver(validation),
+    })
+
+    const handleChange = useCallback(() => {
+        clearErrors()
+    }, [clearErrors])
+
+    const handleSubmitForm = useCallback(
+        async (data: ContactModel) => {
+            await submitContact(data)
+        },
+        [submitContact]
+    )
+
     return (
         <>
             <PageWrapper>
@@ -23,23 +45,39 @@ export const ContactView: React.FC = () => {
                         Fill out the form below to send us a message, and our
                         team will get back to you as soon as possible.
                     </Box>
-                    <Input
-                        placeholder="Name"
-                        disableUnderline
-                        fullWidth
-                        sx={{ mb: 5 }}
-                    />
-                    <Input placeholder="E-mail" fullWidth sx={{ mb: 5 }} />
-                    <Input
-                        placeholder="Message"
-                        fullWidth
-                        multiline
-                        rows={5}
-                        sx={{ mb: 5 }}
-                    />
-                    <Button variant="contained" sx={{ px: 10 }}>
-                        Send
-                    </Button>
+                    <form
+                        onSubmit={handleSubmit(handleSubmitForm)}
+                        onChange={handleChange}
+                    >
+                        <Input
+                            {...register('name')}
+                            placeholder="Name"
+                            disableUnderline
+                            fullWidth
+                            sx={{ mb: 5 }}
+                        />
+                        <Input
+                            placeholder="E-mail"
+                            fullWidth
+                            sx={{ mb: 5 }}
+                            {...register('email')}
+                        />
+                        <Input
+                            {...register('message')}
+                            placeholder="Message"
+                            fullWidth
+                            multiline
+                            rows={5}
+                            sx={{ mb: 5 }}
+                        />
+                        <Button
+                            variant="contained"
+                            sx={{ px: 10 }}
+                            type="submit"
+                        >
+                            Send
+                        </Button>
+                    </form>
                 </Box>
             </PageWrapper>
         </>
