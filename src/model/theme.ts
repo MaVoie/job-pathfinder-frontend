@@ -23,7 +23,7 @@ export const appTheme = createTheme({
                 root: {
                     color: '#9c9c9c',
                     background: '#f3f3f3',
-                    borderRadius: '4px',
+                    borderRadius: '8px',
                     paddingLeft: '10px',
                     paddingTop: '10px',
                     paddingBottom: '10px',

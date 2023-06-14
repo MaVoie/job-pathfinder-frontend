@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Grid, TextField } from '@mui/material'
+import { Button, Grid, Input } from '@mui/material'
 import {
     newsLetterCaptionStyles,
     newsLetterSignUpTitleStyles,
@@ -21,9 +21,8 @@ export const NewsLetterSignUp: React.FC = () => {
                     <Grid container direction="column" spacing={1}>
                         <Grid item>
                             <Grid container spacing={1}>
-                                <TextField
-                                    label="Email Address"
-                                    variant="filled"
+                                <Input
+                                    placeholder="Email Address"
                                     sx={{ mr: 2, width: '65%' }}
                                 />
                                 <Button variant="contained">Subscribe</Button>
