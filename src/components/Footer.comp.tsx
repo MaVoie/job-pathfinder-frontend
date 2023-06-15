@@ -11,7 +11,7 @@ export const Footer: React.FC = () => {
                 <NavLink to={RoutesEnum.HOME}>
                     <img src={Logo} alt="logo" />
                 </NavLink>
-                <Grid item>@ Copyright - MaVoie</Grid>
+                <Grid item>@ Copyright - Bluesoft</Grid>
             </Grid>
         </>
     )
