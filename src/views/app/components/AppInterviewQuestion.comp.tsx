@@ -56,29 +56,39 @@ export const AppInterviewQuestions: React.FC<Props> = (props) => {
         []
     )
 
+    console.debug({ selectedQuestion })
+    console.debug({ evaluation })
     if (!coverLettersAvailable) return null
 
     return (
         <>
             <Box sx={{ my: 4 }}>
                 <Box sx={interviewQuestionsStyles}>
-                    Here are examples of questions you might be asked during the
-                    interview. Select one and provide your answer.
+                    {evaluation
+                        ? "Here's the question you have selected and your anwser's evaluation."
+                        : 'Here are examples of questions you might be asked during the interview. Select one and provide your answer.'}
                 </Box>
                 {isLoading && <Loader visible={true} />}
                 {data && (
                     <>
                         <Box sx={{ my: 4 }}>
-                            {data.questions.map((question) => (
-                                <Box
-                                    sx={interviewQuestionStyles(
+                            {data.questions
+                                .filter(
+                                    (question) =>
+                                        !evaluation ||
                                         selectedQuestion === question
-                                    )}
-                                    onClick={handleClick(question)}
-                                >
-                                    {question}
-                                </Box>
-                            ))}
+                                )
+                                .map((question) => (
+                                    <Box
+                                        sx={interviewQuestionStyles(
+                                            selectedQuestion === question
+                                        )}
+                                        onClick={handleClick(question)}
+                                        key={question}
+                                    >
+                                        {question}
+                                    </Box>
+                                ))}
                         </Box>
                     </>
                 )}
@@ -106,7 +116,7 @@ export const AppInterviewQuestions: React.FC<Props> = (props) => {
                     <Input
                         multiline
                         fullWidth
-                        value={evaluation}
+                        value={evaluation.evaluation}
                         disabled
                         sx={{ mb: 3 }}
                     />

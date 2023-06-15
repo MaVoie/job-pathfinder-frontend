@@ -7,7 +7,7 @@ export const interviewQuestionsStyles: SxProps = {
 
 export const interviewQuestionStyles = (selected: boolean): SxProps => ({
     cursor: 'pointer',
-    my: 1,
+    my: 2,
     p: 2,
     textAlign: 'left',
     color: '#9c9c9c',
