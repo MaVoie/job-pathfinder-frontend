@@ -20,7 +20,7 @@ export const AppCoverLetter: React.FC<Props> = (props) => {
             processId,
             body: { selected_position: selectedPosition },
         })
-    }, [])
+    }, [processId, selectedPosition, setDecisionDone, getCoverLetters])
 
     if (!selectedPosition || !processId) return null
 
@@ -38,7 +38,13 @@ export const AppCoverLetter: React.FC<Props> = (props) => {
             {!!data && (
                 <Box sx={{ my: 4 }}>
                     {data.map((letter) => (
-                        <Input multiline fullWidth value={letter} disabled />
+                        <Input
+                            multiline
+                            fullWidth
+                            value={letter}
+                            disabled
+                            sx={{ mb: 3 }}
+                        />
                     ))}
                 </Box>
             )}
