@@ -7,6 +7,9 @@ export const appTheme = createTheme({
         primary: {
             main: MAIN_COLOR,
         },
+        secondary: {
+            main: '#f3f3f3',
+        },
     },
     components: {
         MuiLink: {

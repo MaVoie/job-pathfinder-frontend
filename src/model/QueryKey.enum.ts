@@ -1,3 +1,5 @@
 export enum QueryKeyEnum {
+    COVER_LETTERS_GET = 'COVER_LETTERS_GET',
+    SUBMIT_APP = 'SUBMIT_APP',
     SUBMIT_CONTACT = 'SUBMIT_CONTACT',
 }

@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { PageWrapper } from '../../components/Page.wrapper.tsx'
-import { Box, Button, Input } from '@mui/material'
+import { Box } from '@mui/material'
 import {
     aboutBodyStyles,
     aboutCaptionStyles,
     aboutTitleStyles,
 } from '../about/about.styles.ts'
+import { useSubmitApp } from './util/useSubmitApp.util.ts'
+import { AppForm } from './components/AppForm.comp.tsx'
+import { AppPositions } from './components/AppPositions.comp.tsx'
+import { AppCoverLetter } from './components/AppCoverLetter.comp.tsx'
 
 export const AppView: React.FC = () => {
+    const { submitApp, isLoading, data } = useSubmitApp()
+    const [selectedPosition, selectPosition] = useState<string | null>(null)
+    const [decisionDone, setDecisionDone] = useState(false)
+
     return (
         <>
             <PageWrapper>
@@ -19,24 +27,22 @@ export const AppView: React.FC = () => {
                         Discover the jobs you're best suited for and craft
                         compelling cover letters.
                     </Box>
-                    <Input
-                        placeholder="Name"
-                        disableUnderline
-                        fullWidth
-                        sx={{ mb: 2 }}
+                    <AppForm
+                        submitApp={submitApp}
+                        disabled={!!data}
+                        isLoading={isLoading}
                     />
-                    <Input placeholder="Location" fullWidth sx={{ mb: 2 }} />
-                    <Input placeholder="Email" fullWidth sx={{ mb: 2 }} />
-                    <Input
-                        placeholder="About (brief description of experiences, skills, aspirations)"
-                        fullWidth
-                        multiline
-                        rows={5}
-                        sx={{ mb: 2 }}
+                    <AppPositions
+                        positions={data?.proposed_positions}
+                        selectPosition={selectPosition}
+                        selectedPosition={selectedPosition}
+                        decisionDone={decisionDone}
                     />
-                    <Button variant="contained" sx={{ px: 10 }}>
-                        Analyze
-                    </Button>
+                    <AppCoverLetter
+                        selectedPosition={selectedPosition}
+                        setDecisionDone={setDecisionDone}
+                        processId={data?.process_id}
+                    />
                 </Box>
             </PageWrapper>
         </>
