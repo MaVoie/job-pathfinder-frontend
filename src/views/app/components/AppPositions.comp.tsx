@@ -13,9 +13,12 @@ export const AppPositions: React.FC<Props> = (props) => {
 
     const handleClick = useCallback(
         (position: string) => () => {
+            if (decisionDone) {
+                return
+            }
             selectPosition(position)
         },
-        []
+        [decisionDone]
     )
 
     if (!positions) return null
@@ -24,31 +27,40 @@ export const AppPositions: React.FC<Props> = (props) => {
         <>
             <Box sx={{ my: 4 }}>
                 <Box>
-                    Based on your profile, you are a great match for these
-                    positions:
+                    {decisionDone
+                        ? 'Selected position'
+                        : 'Based on your profile, you are a great match for these positions:'}
                 </Box>
-                <Grid container justifyContent="space-around" sx={{ my: 4 }}>
+                <Grid
+                    container
+                    justifyContent="space-around"
+                    sx={{ my: 4 }}
+                    gap={2}
+                >
                     {positions
                         .filter(
                             (position) =>
                                 !decisionDone || position === selectedPosition
                         )
                         .map((position) => (
-                            <Button
-                                variant="contained"
-                                color={
-                                    position === selectedPosition
-                                        ? 'primary'
-                                        : 'secondary'
-                                }
-                                key={position}
-                                onClick={handleClick(position)}
-                            >
-                                {position}
-                            </Button>
+                            <Grid item key={position}>
+                                <Button
+                                    variant="contained"
+                                    color={
+                                        position === selectedPosition
+                                            ? 'primary'
+                                            : 'secondary'
+                                    }
+                                    onClick={handleClick(position)}
+                                >
+                                    {position}
+                                </Button>
+                            </Grid>
                         ))}
                 </Grid>
-                <Box>Select the position that interests you the most.</Box>
+                {!decisionDone && (
+                    <Box>Select the position that interests you the most.</Box>
+                )}
             </Box>
         </>
     )

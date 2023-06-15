@@ -10,19 +10,19 @@ export enum HttpMethod {
     DELETE = 'DELETE',
 }
 
-interface Params<BODY extends Record<string, unknown>> {
+interface Params<BODY extends Record<string, unknown> | undefined> {
     method: HttpMethod
     path: string
     body?: BODY
     query?: Record<string, string>
 }
 
-interface Return<BODY extends Record<string, unknown>, RESPONSE> {
+interface Return<BODY extends Record<string, unknown> | undefined, RESPONSE> {
     call: (params: Params<BODY>) => Promise<RESPONSE>
 }
 
 export const apiClient = <
-    BODY extends Record<string, unknown>,
+    BODY extends Record<string, unknown> | undefined,
     RESPONSE
 >(): Return<BODY, RESPONSE> => {
     return {

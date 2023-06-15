@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useCallback } from 'react'
 import { Box, Button, Input } from '@mui/material'
 import { useGetCoverLetter } from '../util/useGetCoverLetter.util.ts'
+import { Loader } from '../../../components/Loader.comp.tsx'
 
 interface Props {
     selectedPosition: string | null
@@ -35,6 +36,7 @@ export const AppCoverLetter: React.FC<Props> = (props) => {
                     Write cover letter for me
                 </Button>
             </Box>
+            <Loader visible={isLoading} />
             {!!data && (
                 <Box sx={{ my: 4 }}>
                     {data.map((letter) => (

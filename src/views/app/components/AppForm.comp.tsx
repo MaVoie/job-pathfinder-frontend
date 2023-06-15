@@ -37,6 +37,8 @@ export const AppForm: React.FC<Props> = (props) => {
         [submitApp]
     )
 
+    const isDisabled = disabled || isLoading
+
     return (
         <>
             <form
@@ -49,28 +51,28 @@ export const AppForm: React.FC<Props> = (props) => {
                     disableUnderline
                     fullWidth
                     sx={{ mb: 2 }}
-                    disabled={disabled}
+                    disabled={isDisabled}
                 />
                 <Input
                     {...register('surname')}
                     placeholder="Surname"
                     fullWidth
                     sx={{ mb: 2 }}
-                    disabled={disabled}
+                    disabled={isDisabled}
                 />
                 <Input
                     {...register('location')}
                     placeholder="Location"
                     fullWidth
                     sx={{ mb: 2 }}
-                    disabled={disabled}
+                    disabled={isDisabled}
                 />
                 <Input
                     {...register('email')}
                     placeholder="Email"
                     fullWidth
                     sx={{ mb: 2 }}
-                    disabled={disabled}
+                    disabled={isDisabled}
                 />
                 <Input
                     {...register('customer_message')}
@@ -79,7 +81,7 @@ export const AppForm: React.FC<Props> = (props) => {
                     multiline
                     rows={5}
                     sx={{ mb: 2 }}
-                    disabled={disabled}
+                    disabled={isDisabled}
                 />
                 {errors && (
                     <>
@@ -91,7 +93,12 @@ export const AppForm: React.FC<Props> = (props) => {
                     </>
                 )}
                 {!disabled && (
-                    <Button variant="contained" sx={{ px: 10 }} type="submit">
+                    <Button
+                        variant="contained"
+                        sx={{ px: 10 }}
+                        type="submit"
+                        disabled={isDisabled}
+                    >
                         Analyze
                     </Button>
                 )}
