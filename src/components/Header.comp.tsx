@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-import Logo from '../assets/logo.png';
-import { Box, Grid, SxProps } from '@mui/material';
-import { NavLink } from 'react-router-dom';
-import { RoutesEnum } from '../model/Routes.enum.ts';
+import Logo from '../../public/logo.png'
+import { Box, Grid, SxProps } from '@mui/material'
+import { NavLink } from 'react-router-dom'
+import { RoutesEnum } from '../model/Routes.enum.ts'
 
 const headerTitleStyles: SxProps = {
     fontSize: '32px',

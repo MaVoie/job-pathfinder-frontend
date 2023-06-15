@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useCallback } from 'react'
+import React, { Dispatch, SetStateAction, useCallback, useEffect } from 'react'
 import { Box, Button, Input } from '@mui/material'
 import { useGetCoverLetter } from '../util/useGetCoverLetter.util.ts'
 import { Loader } from '../../../components/Loader.comp.tsx'
@@ -7,10 +7,16 @@ interface Props {
     selectedPosition: string | null
     setDecisionDone: Dispatch<SetStateAction<boolean>>
     processId: string | undefined
+    setCoverLettersAvailable: Dispatch<SetStateAction<boolean>>
 }
 
 export const AppCoverLetter: React.FC<Props> = (props) => {
-    const { selectedPosition, setDecisionDone, processId } = props
+    const {
+        selectedPosition,
+        setDecisionDone,
+        processId,
+        setCoverLettersAvailable,
+    } = props
     const { getCoverLetters, isLoading, data } = useGetCoverLetter()
 
     const handleClick = useCallback(async () => {
@@ -21,20 +27,28 @@ export const AppCoverLetter: React.FC<Props> = (props) => {
             processId,
             body: { selected_position: selectedPosition },
         })
-    }, [processId, selectedPosition, setDecisionDone, getCoverLetters])
+    }, [processId, selectedPosition])
+
+    useEffect(() => {
+        if (data && data.length > 0) {
+            setCoverLettersAvailable(true)
+        }
+    }, [data])
 
     if (!selectedPosition || !processId) return null
 
     return (
         <>
             <Box sx={{ my: 4 }}>
-                <Button
-                    variant="contained"
-                    onClick={handleClick}
-                    disabled={isLoading || !!data}
-                >
-                    Write cover letter for me
-                </Button>
+                {!data && !isLoading && (
+                    <Button
+                        variant="contained"
+                        onClick={handleClick}
+                        disabled={isLoading || !!data}
+                    >
+                        Write cover letter for me
+                    </Button>
+                )}
             </Box>
             <Loader visible={isLoading} />
             {!!data && (

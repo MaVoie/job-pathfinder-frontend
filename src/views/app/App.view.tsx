@@ -10,11 +10,13 @@ import { useSubmitApp } from './util/useSubmitApp.util.ts'
 import { AppForm } from './components/AppForm.comp.tsx'
 import { AppPositions } from './components/AppPositions.comp.tsx'
 import { AppCoverLetter } from './components/AppCoverLetter.comp.tsx'
+import { AppInterviewQuestions } from './components/AppInterviewQuestion.comp.tsx'
 
 export const AppView: React.FC = () => {
     const { submitApp, isLoading, data } = useSubmitApp()
     const [selectedPosition, selectPosition] = useState<string | null>(null)
     const [decisionDone, setDecisionDone] = useState(false)
+    const [showQuestions, setShowQuestions] = useState(false)
 
     return (
         <>
@@ -41,6 +43,11 @@ export const AppView: React.FC = () => {
                     <AppCoverLetter
                         selectedPosition={selectedPosition}
                         setDecisionDone={setDecisionDone}
+                        processId={data?.process_id}
+                        setCoverLettersAvailable={setShowQuestions}
+                    />
+                    <AppInterviewQuestions
+                        coverLettersAvailable={showQuestions}
                         processId={data?.process_id}
                     />
                 </Box>

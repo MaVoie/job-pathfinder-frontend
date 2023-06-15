@@ -1,8 +1,8 @@
-import React from 'react';
-import Logo from '../assets/logo.png';
-import { Grid } from '@mui/material';
-import { RoutesEnum } from '../model/Routes.enum.ts';
-import { NavLink } from 'react-router-dom';
+import React from 'react'
+import Logo from '../../public/logo.png'
+import { Grid } from '@mui/material'
+import { RoutesEnum } from '../model/Routes.enum.ts'
+import { NavLink } from 'react-router-dom'
 
 export const Footer: React.FC = () => {
     return (
@@ -11,10 +11,8 @@ export const Footer: React.FC = () => {
                 <NavLink to={RoutesEnum.HOME}>
                     <img src={Logo} alt="logo" />
                 </NavLink>
-                <Grid item>
-                    @ Copyright - MaVoie
-                </Grid>
+                <Grid item>@ Copyright - MaVoie</Grid>
             </Grid>
         </>
-    );
-};
+    )
+}
