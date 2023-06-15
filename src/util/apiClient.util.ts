@@ -36,9 +36,9 @@ export const apiClient = <
             }
             const response = await axios(url.toString(), {
                 method,
-                data: body ? JSON.stringify(body) : undefined,
+                data: body ?? undefined,
             })
-            return response.data.json()
+            return response.data
         },
     }
 }
